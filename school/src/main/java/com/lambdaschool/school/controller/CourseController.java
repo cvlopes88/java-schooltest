@@ -17,6 +17,18 @@ public class CourseController
     @Autowired
     private CourseService courseService;
 
+
+
+    @GetMapping(value = "/course/{CourseId}",
+            produces = {"application/json"})
+    public ResponseEntity<?> getStudentById(
+            @PathVariable
+                    Long CourseId)
+    {
+        Course r = courseService.findCourseById(CourseId);
+        return new ResponseEntity<>(r, HttpStatus.OK);
+    }
+
     @GetMapping(value = "/courses", produces = {"application/json"})
     public ResponseEntity<?> listAllCourses()
     {
