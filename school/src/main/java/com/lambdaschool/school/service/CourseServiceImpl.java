@@ -1,6 +1,8 @@
 package com.lambdaschool.school.service;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.lambdaschool.school.model.Course;
+import com.lambdaschool.school.model.Student;
 import com.lambdaschool.school.repository.CourseRepository;
 import com.lambdaschool.school.view.CountStudentsInCourses;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,14 @@ public class CourseServiceImpl implements CourseService
         ArrayList<Course> list = new ArrayList<>();
         courserepos.findAll().iterator().forEachRemaining(list::add);
         return list;
+
+    }
+
+    @Override
+    public Course findCourseById(long id) {
+
+        return courserepos.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Long.toString(id)));
     }
 
     @Override
